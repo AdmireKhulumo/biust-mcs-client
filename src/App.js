@@ -1,7 +1,16 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+
+//components
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
+import login from "./login";
+
+//for Auth
+import { withRouter } from "react-router-dom";
+import { AuthProvider } from "./authentication/Auth";
+import PrivateRoute from "./authentication/PrivateRoute";
 
 //Apollo Imports
 import ApolloClient from "apollo-boost";
@@ -49,8 +58,15 @@ function App() {
 		<ApolloProvider client={client}>
 			<MuiThemeProvider theme={theme}>
 				<div className="App">
-					<Navbar />
-					<Dashboard />
+					<AuthProvider>
+						<Router>
+							<Navbar />
+							<Switch>
+								<Route exact path="/login" component={login} />
+								<PrivateRoute exact path="/" component={Dashboard} />
+							</Switch>
+						</Router>
+					</AuthProvider>
 					<Box mt={5}>
 						<Copyright />
 					</Box>

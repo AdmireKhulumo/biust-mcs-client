@@ -1,12 +1,18 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { firebaseApp } from "../firebase";
+
+//MUI
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
 	AppBar,
 	Toolbar,
 	Typography,
 	CssBaseline,
-	useScrollTrigger
+	useScrollTrigger,
+	Tooltip,
+	IconButton
 } from "@material-ui/core";
+import SignOutIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -15,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 		//backgroundImage: `url(${bg})`,
 		//color: "#000"
 	},
-	menuButton: {
+	button: {
 		marginRight: theme.spacing(2)
 	},
 	title: {
@@ -37,6 +43,15 @@ function ElevationScroll(props) {
 		elevation: trigger ? 4 : 0
 	});
 }
+
+const LightTooltip = withStyles((theme) => ({
+	tooltip: {
+		backgroundColor: theme.palette.common.white,
+		color: "rgba(0, 0, 0, 0.87)",
+		boxShadow: theme.shadows[1],
+		fontSize: 11
+	}
+}))(Tooltip);
 
 export default function MenuAppBar(props) {
 	const classes = useStyles();
@@ -62,6 +77,17 @@ export default function MenuAppBar(props) {
 									<strong> BIUST MOVEMENT CONTROL SYSTEM</strong>
 								</Typography>
 							</div>
+							<LightTooltip title="SIGN OUT" arrow>
+								<IconButton
+									edge="start"
+									className={classes.button}
+									color="inherit"
+									aria-label="home"
+									onClick={() => firebaseApp.auth().signOut()}
+								>
+									<SignOutIcon />
+								</IconButton>
+							</LightTooltip>
 						</Toolbar>
 					</AppBar>
 				</ElevationScroll>
