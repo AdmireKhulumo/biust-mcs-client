@@ -19,7 +19,6 @@ import {
 	DialogContentText,
 	DialogTitle,
 	FormControlLabel,
-	Link,
 	Container
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
