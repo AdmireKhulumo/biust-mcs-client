@@ -50,7 +50,7 @@ const theme = createMuiTheme({
 
 //setting Up Apollo Client
 const client = new ApolloClient({
-	uri: "https://biust-mcs-apollo-server.herokuapp.com"
+	uri: "https://biust-mcs-apollo-server.oa.r.appspot.com"
 });
 
 function App() {
