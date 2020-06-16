@@ -12,16 +12,26 @@ import { Grid, Typography, Paper } from "@material-ui/core";
 
 function Dashboard() {
 	const [station, setStation] = useState("New Main Gate");
-	//const [guestRecordings, setGuestRecordings]=useState();
-	//const [staffRecordings, setStaffRecordings]=useState();
-	//const [studentRecordings, setstudentRecordings]=useState();
+	const [dateStart, setDateStart] = useState(new Date());
+	const [dateEnd, setDateEnd] = useState(new Date());
+
+	const options = { year: "numeric", month: "long", day: "numeric" };
 
 	//hook for getting recordings
+
 	const {
 		loading: recordingsLoading,
 		error: recordingsError,
 		data: recordingsData
-	} = useQuery(getRecordingsQuery, { variables: { station } });
+	} = useQuery(getRecordingsQuery, {
+		variables: {
+			station: station,
+			//const date = new Date(value);
+			//date.setDate(date.getDate() + 1);
+			dateStart: new Date(dateStart).toLocaleDateString("en-GB"),
+			dateEnd: dateEnd //dateEndPlusOne.toLocaleDateString("en-GB")
+		}
+	});
 
 	if (recordingsError) {
 		console.log(recordingsError);
@@ -45,7 +55,11 @@ function Dashboard() {
 			}
 		});
 	} else {
-		return <Typography variant="overline">Loading Data</Typography>;
+		return (
+			<Typography variant="button" style={{ marginTop: "350px" }}>
+				Loading Data ...
+			</Typography>
+		);
 	}
 
 	return (
@@ -66,7 +80,14 @@ function Dashboard() {
 					style={{ marginTop: "20px" }}
 				>
 					<Paper>
-						<Selections />
+						<Selections
+							setStation={setStation}
+							setDateStart={setDateStart}
+							setDateEnd={setDateEnd}
+							dateStart={dateStart}
+							dateEnd={dateEnd}
+							station={station}
+						/>
 					</Paper>
 				</Grid>
 				<Grid item xs={11} sm={11} md={11} lg={11}>

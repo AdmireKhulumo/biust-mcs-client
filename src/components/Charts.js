@@ -12,61 +12,49 @@ import {
 import CanvasJSReact from "../assets/canvasjs.react";
 import { makeStyles } from "@material-ui/core/styles";
 
-//Chart 1 Doughnut
-const data = {
-	labels: ["Guests", "Staff", "Students"],
-	datasets: [
-		{
-			data: [33, 58, 102],
-			backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-			hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-		}
-	]
-};
-const options = {
-	rotation: 1 * Math.PI,
-	circumference: 1 * Math.PI,
-	responsive: true,
-	maintainAspectRatio: true,
-	legend: {
-		display: true,
-		position: "bottom",
-		fullWidth: true
-	},
-	cutoutPercentage: 60
-};
-
-/*const options = {
-	animationEnabled: true,
-	data: [
-		{
-			type: "doughnut",
-			startAngle: 180,
-			//innerRadius: 60,
-			indexLabelFontSize: 17,
-			indexLabel: "{label} - #percent%",
-			toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-			dataPoints: [
-				{ y: 67, label: "Guests" },
-				{ y: 28, label: "Staff" },
-				{ y: 10, label: "Students" }
-			]
-		}
-	]
-};*/
-
-let CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-function showChart() {
-	return <Doughnut data={data} options={options} />;
-}
-
 function Charts(props) {
 	//const classes=useStyles();
+	let numGuests = props.guestRecordings.length;
+	let numStaff = props.staffRecordings.length;
+	let numStudents = props.studentRecordings.length;
+	let totalNum = numGuests + numStaff + numStudents;
 
 	useEffect(() => {
 		showChart();
 	}, []);
+
+	//Chart 1 Doughnut
+	const data = {
+		labels: ["Guests", "Staff", "Students"],
+		datasets: [
+			{
+				data: [numGuests, numStaff, numStudents],
+				backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+				hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+				weight: 20,
+				hoverBorderWidth: 10,
+				hoverBorderColor: "#ffffff"
+			}
+		]
+	};
+
+	const options = {
+		rotation: 1 * Math.PI,
+		circumference: 1 * Math.PI,
+		responsive: true,
+		maintainAspectRatio: true,
+		legend: {
+			display: true,
+			position: "bottom",
+			fullWidth: true
+		},
+		cutoutPercentage: 60
+	};
+
+	function showChart() {
+		return <Doughnut data={data} options={options} />;
+	}
+
 	return (
 		<div style={{ marginTop: "20px" }}>
 			{/*<Paper elevation={5}>
@@ -84,10 +72,6 @@ function Charts(props) {
 					</Grid>
 				</Grid>
 						</Paper>*/}
-
-			<Typography variant="button">
-				<u>Number Of People Currently In The Building</u>
-			</Typography>
 			<Grid container direction="row">
 				<Grid item xs={12} sm={9} md={9} lg={9} style={{ width: "900px" }}>
 					{showChart()}
@@ -95,35 +79,35 @@ function Charts(props) {
 				<Grid item xs={12} sm={3} md={3} lg={3}>
 					<Table size="medium" style={{ margin: "auto 0px auto auto" }}>
 						<TableBody>
-							<TableRow hover="true" padding="10px">
+							<TableRow hover padding="10px">
 								<TableCell align="left">
 									<Typography variant="overline">Guests</Typography>
 								</TableCell>
-								<TableCell align="right">33</TableCell>
+								<TableCell align="right">{numGuests}</TableCell>
 							</TableRow>
 
-							<TableRow hover="true">
+							<TableRow hover>
 								<TableCell align="left">
 									<Typography variant="overline">Staff</Typography>
 								</TableCell>
-								<TableCell align="right">58</TableCell>
+								<TableCell align="right">{numStaff}</TableCell>
 							</TableRow>
 
-							<TableRow hover="true">
+							<TableRow hover>
 								<TableCell align="left">
 									<Typography variant="overline">Students</Typography>
 								</TableCell>
-								<TableCell align="right">102</TableCell>
+								<TableCell align="right">{numStudents}</TableCell>
 							</TableRow>
 
-							<TableRow hover="true">
+							<TableRow hover>
 								<TableCell align="left">
 									<Typography variant="overline">
 										<strong>Total</strong>
 									</Typography>
 								</TableCell>
 								<TableCell align="right">
-									<strong>193</strong>
+									<strong>{totalNum}</strong>
 								</TableCell>
 							</TableRow>
 						</TableBody>

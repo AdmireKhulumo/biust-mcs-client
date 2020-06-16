@@ -96,6 +96,7 @@ function Tables(props) {
 				recording.guest.registeredBy,
 				recording.guest.station
 			]);
+			return "";
 		} catch (error) {
 			console.log(error);
 		}
@@ -120,6 +121,7 @@ function Tables(props) {
 				recording.moderator.phone,
 				recording.moderator.identificationNum
 			]);
+			return "";
 		} catch (error) {
 			console.log(error);
 		}
@@ -145,6 +147,7 @@ function Tables(props) {
 				recording.moderator.phone,
 				recording.moderator.identificationNum
 			]);
+			return "";
 		} catch (error) {
 			console.log(error);
 		}

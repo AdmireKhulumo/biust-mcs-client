@@ -61,7 +61,7 @@ const ForgotPassword = ({ history }) => {
 					setOpen(true);
 				} catch (error) {
 					setMessage(
-						`${error.message} Please Contact IT department if you need help.`
+						`${error.message} Please email admin at covidbiust@biust.ac.bw for help.`
 					);
 					setSuccess(false);
 					setOpen(true);

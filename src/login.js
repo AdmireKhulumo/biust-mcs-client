@@ -64,7 +64,7 @@ const Login = ({ history }) => {
 			} catch (error) {
 				//alert(error);
 				setMessage(
-					`${error.message} Please Contact IT department if you need help.`
+					`${error.message} Please email admin at covidbiust@biust.ac.bw for help.`
 				);
 				setOpen(true);
 			}

@@ -2,8 +2,8 @@ import { gql } from "apollo-boost";
 
 //Get All recordings from a given station
 const getRecordingsQuery = gql`
-	query recordings($station: String!) {
-		recordings(station: $station) {
+	query recordings($station: String!, $dateStart: String, $dateEnd: String) {
+		recordings(station: $station, dateStart: $dateStart, dateEnd: $dateEnd) {
 			candidate
 			candidateDbId
 			dateRecorded
@@ -64,4 +64,14 @@ const getRecordingsQuery = gql`
 	}
 `;
 
-export { getRecordingsQuery };
+//Get all available stations
+const getStationsQuery = gql`
+	query stations {
+		stations {
+			id
+			stationName
+		}
+	}
+`;
+
+export { getRecordingsQuery, getStationsQuery };

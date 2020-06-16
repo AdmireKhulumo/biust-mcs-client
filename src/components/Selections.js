@@ -1,106 +1,176 @@
 import React, { useState } from "react";
 import DatePicker from "react-date-picker";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-	MenuItem,
-	FormControl,
-	ListSubheader,
-	Select,
-	Typography,
-	InputLabel,
-	Grid
-} from "@material-ui/core";
+import { MenuItem, Select, Typography, Grid, Button } from "@material-ui/core";
+import FilterIcon from "@material-ui/icons/FilterList";
+
+//Query stuff
+import { useQuery } from "@apollo/react-hooks";
+import { getStationsQuery } from "../assets/queries";
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
-		margin: theme.spacing(1),
-		minWidth: " 200px"
+		margin: theme.spacing(2)
 	},
 	datePicker: {
 		minWidth: "200px",
 		borderRadius: "5px!important",
-		border: "2px solid grey"
+		border: "3px solid #f68951"
+	},
+	submit: {
+		marginTop: theme.spacing(1),
+		minWidth: "150px"
 	}
 }));
 
-export default function Selections() {
+export default function Selections(props) {
 	const classes = useStyles();
-	const [date, setDate] = useState(new Date());
-	const [station, setStation] = useState("New Main Gate");
+	const [station, setStation] = useState(props.station);
+	const [dateStart, setDateStart] = useState(props.dateStart);
+	const [dateEnd, setDateEnd] = useState(props.dateEnd);
 
-	//let options = { year: "numeric", month: "numeric", day: "numeric" };
-	//let today = new Date(); //.toLocaleDateString("en-GB", options);
+	//hook for getting recordings
+	const {
+		loading: stationsLoading,
+		error: stationsError,
+		data: stationsData
+	} = useQuery(getStationsQuery);
 
-	console.log(date);
-	console.log(station);
+	if (stationsError) {
+		console.log(stationsError);
+	}
+
+	const submitQuery = (event) => {
+		event.preventDefault();
+		props.setStation(station);
+		props.setDateStart(dateStart);
+		props.setDateEnd(dateEnd);
+	};
+
 	return (
-		<div>
-			<Grid
-				container
-				spacing={3}
-				direction="row"
-				justify="center"
-				alignItems="center"
-				style={{ paddingLeft: "20px", paddingRight: "20px" }}
-			>
-				<Grid item xs={11} sm={11} md={4} lg={4}>
-					<Typography variant="overline">Select Station and Date: </Typography>
-				</Grid>
+		<div className={classes.formControl}>
+			<Typography variant="overline">Select Station and Date: </Typography>
 
-				<Grid item xs={11} sm={11} md={4} lg={4}>
-					<FormControl
-						className={classes.formControl}
-						placeholder="New Main Gate"
-					>
-						<InputLabel htmlFor="grouped-native-select">STATION</InputLabel>
-						<Select
-							native
-							defaultValue="New Main Gate"
-							id="grouped-native-select"
-							onChange={(event) => {
-								setStation(event.target.value);
-							}}
+			<form onSubmit={submitQuery}>
+				<Grid
+					container
+					spacing={3}
+					direction="row"
+					justify="center"
+					alignItems="center"
+				>
+					<Grid item xs={11} sm={11} md={3} lg={3}>
+						<Grid
+							container
+							direction="column"
+							justify="center"
+							alignItems="center"
 						>
-							<option aria-label="None" value="New Main Gate">
-								New Main Gate
-							</option>
-							<optgroup label="Main Entrances">
-								<option value={1}>New Main Gate</option>
-								<option value={2}>Admin Building</option>
-							</optgroup>
-							<optgroup label="Faculty Of Science">
-								<option value={3}>Biology Offices</option>
-								<option value={4}>Physics Offices</option>
-								<option value={5}>Chemistry Offices</option>
-								<option value={6}>CS Offices</option>
-							</optgroup>
-							<optgroup label="Faculty Of Engineering">
-								<option value={7}>Telecoms Offices</option>
-								<option value={8}>Mechatronics Offices</option>
-								<option value={9}>Chemical Eng. Offices</option>
-								<option value={10}>Industrial Eng. Offices</option>
-							</optgroup>
-							<optgroup label="Classrooms">
-								<option value={11}>A1010</option>
-								<option value={12}>A1011</option>
-								<option value={13}>A1012</option>
-								<option value={14}>A1013</option>
-							</optgroup>
-						</Select>
-					</FormControl>
+							<Grid item>
+								<Typography variant="overline">Station:</Typography>
+							</Grid>
+							<Grid item>
+								<Select
+									id="select"
+									value={station}
+									onChange={(event) => {
+										setStation(event.target.value);
+									}}
+									className={classes.datePicker}
+								>
+									{stationsLoading && (
+										<MenuItem value={""} disabled>
+											<i>Loading Stations</i>
+										</MenuItem>
+									)}
+
+									{!stationsLoading &&
+										stationsData.stations.map((station) => {
+											return (
+												<MenuItem value={station.stationName} key={station.id}>
+													{station.stationName}{" "}
+												</MenuItem>
+											);
+										})}
+								</Select>
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item xs={11} sm={11} md={3} lg={3}>
+						<Grid
+							container
+							direction="column"
+							justify="center"
+							alignItems="center"
+						>
+							<Grid item>
+								<Typography variant="overline">From:</Typography>
+							</Grid>
+							<Grid item>
+								<DatePicker
+									id="dateStart"
+									clearIcon={null}
+									onChange={(value) => {
+										setDateStart(value);
+									}}
+									value={dateStart}
+									format="dd/MM/y"
+									className={classes.datePicker}
+								/>
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item xs={11} sm={11} md={3} lg={3}>
+						<Grid
+							container
+							direction="column"
+							justify="center"
+							alignItems="center"
+						>
+							<Grid item>
+								<Typography variant="overline">TO:</Typography>
+							</Grid>
+							<Grid item>
+								<DatePicker
+									id="dateEnd"
+									clearIcon={null}
+									onChange={(value) => {
+										setDateEnd(value);
+									}}
+									value={dateEnd}
+									format="dd/MM/y"
+									className={classes.datePicker}
+								/>
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item xs={11} sm={11} md={3} lg={3}>
+						<Grid
+							container
+							direction="column"
+							justify="center"
+							alignItems="center"
+						>
+							<Grid item>
+								<Typography variant="caption">.</Typography>
+							</Grid>
+							<Grid item>
+								<Button
+									disableElevation
+									onClick={submitQuery}
+									type="submit"
+									variant="contained"
+									color="primary"
+									className={classes.submit}
+									startIcon={<FilterIcon />}
+								>
+									<strong>Filter</strong>
+								</Button>
+							</Grid>
+						</Grid>
+					</Grid>
 				</Grid>
-				<Grid item xs={11} sm={11} md={4} lg={4}>
-					<DatePicker
-						clearIcon={null}
-						onChange={(value) => {
-							setDate(value);
-						}}
-						value={date}
-						format="dd/MM/y"
-						className={classes.datePicker}
-					/>
-				</Grid>
-			</Grid>
+			</form>
 		</div>
 	);
 }

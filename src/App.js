@@ -8,7 +8,6 @@ import Navbar from "./components/Navbar";
 import login from "./login";
 
 //for Auth
-import { withRouter } from "react-router-dom";
 import { AuthProvider } from "./authentication/Auth";
 import PrivateRoute from "./authentication/PrivateRoute";
 
@@ -51,6 +50,7 @@ const theme = createMuiTheme({
 //setting Up Apollo Client
 const client = new ApolloClient({
 	uri: "https://biust-mcs-apollo-server.oa.r.appspot.com"
+	//uri: "http://localhost:4000"
 });
 
 function App() {
@@ -78,14 +78,19 @@ function App() {
 
 function Copyright() {
 	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
-			<Link color="primary" href="https://www.biust.ac.bw/" target="_blank">
-				BIUST
-			</Link>{" "}
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
+		<div>
+			<Typography variant="body2" color="textSecondary" align="center">
+				<i>For any issues email admin at covidbiust@biust.ac.bw</i>
+			</Typography>
+			<Typography variant="body2" color="textSecondary" align="center">
+				{"Copyright © "}
+				<Link color="primary" href="https://www.biust.ac.bw/" target="_blank">
+					BIUST
+				</Link>{" "}
+				{new Date().getFullYear()}
+				{"."}
+			</Typography>
+		</div>
 	);
 }
 
