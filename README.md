@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+This is the client web app for the Botswana International University of Science and Technology's (BIUST) movement control system. It displays all data about people who have gone into any chosen building within a chosen date range. Information includes their details, temperature and graphs to summarise the data.
+
+PROBLEM: People having to register manually when getting temperature taken as they enter a building in the BIUST campus. Leads to long lines and increased risk of getting Covid-19.
+
+SOLUTION: An automated system that scans an individual's unique details, picks up his/her data from the database, and then only temperature is logged into the system by the guard in control.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
