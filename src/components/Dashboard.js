@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db } from "../firebase";
 import Tables from "./Tables";
 import Charts from "./Charts";
 import Selections from "./Selections";
@@ -11,35 +12,32 @@ import { getRecordingsQuery } from "../assets/queries";
 import { Grid, Typography, Paper } from "@material-ui/core";
 
 function Dashboard() {
-	const [station, setStation] = useState("New Main Gate");
+	const [station, setStation] = useState();
 	const [dateStart, setDateStart] = useState(new Date());
 	const [dateEnd, setDateEnd] = useState(new Date());
 
-	const options = { year: "numeric", month: "long", day: "numeric" };
-
+	const options = { year: "numeric", month: "numeric", day: "numeric" };
 	//hook for getting recordings
-
+	const guestRecordings = [],
+		staffRecordings = [],
+		studentRecordings = [];
 	const {
 		loading: recordingsLoading,
 		error: recordingsError,
 		data: recordingsData
 	} = useQuery(getRecordingsQuery, {
 		variables: {
-			station: station,
+			station: station || "Admin Block",
 			//const date = new Date(value);
 			//date.setDate(date.getDate() + 1);
-			dateStart: new Date(dateStart).toLocaleDateString("en-GB"),
-			dateEnd: dateEnd //dateEndPlusOne.toLocaleDateString("en-GB")
+			dateStart: dateStart,
+			dateEnd: dateEnd
 		}
 	});
 
 	if (recordingsError) {
 		console.log(recordingsError);
 	}
-
-	const guestRecordings = [],
-		staffRecordings = [],
-		studentRecordings = [];
 
 	if (recordingsLoading == false) {
 		const recordings = recordingsData.recordings; //pick up array of recordings

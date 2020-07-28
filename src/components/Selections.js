@@ -72,14 +72,14 @@ export default function Selections(props) {
 							<Grid item>
 								<Select
 									id="select"
-									value={station}
+									value={station || "Admin Block"}
 									onChange={(event) => {
 										setStation(event.target.value);
 									}}
 									className={classes.datePicker}
 								>
 									{stationsLoading && (
-										<MenuItem value={""} disabled>
+										<MenuItem disabled>
 											<i>Loading Stations</i>
 										</MenuItem>
 									)}

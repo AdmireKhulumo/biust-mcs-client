@@ -89,7 +89,7 @@ function Tables(props) {
 				recording.guest.contactPersonNames,
 				recording.guest.contactPersonPhoneNum,
 				recording.guest.contactPersonEmail,
-				recording.moderator.fullname,
+				recording.recordedBy,
 				recording.moderator.phone,
 				recording.moderator.identificationNum,
 				recording.guest.dateOfRegistration,
@@ -117,7 +117,7 @@ function Tables(props) {
 				recording.staff.department,
 				recording.staff.office,
 				recording.staff.physicalAdd,
-				recording.moderator.fullname,
+				recording.recordedBy,
 				recording.moderator.phone,
 				recording.moderator.identificationNum
 			]);
@@ -137,13 +137,13 @@ function Tables(props) {
 				recording.student.studentId,
 				recording.student.officialId,
 				recording.student.gender,
-				recording.student.phoneNum,
+				recording.student.contactNum,
 				recording.student.email,
 				recording.student.education,
 				recording.student.programme,
 				recording.student.physicalAdd,
 				recording.student.incampus,
-				recording.moderator.fullname,
+				recording.recordedBy,
 				recording.moderator.phone,
 				recording.moderator.identificationNum
 			]);

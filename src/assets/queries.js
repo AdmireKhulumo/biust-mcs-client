@@ -38,6 +38,7 @@ const getRecordingsQuery = gql`
 				contactNum
 				department
 				office
+				gender
 				physicalAdd
 			}
 			student {
@@ -46,6 +47,7 @@ const getRecordingsQuery = gql`
 				officialId
 				contactNum
 				email
+				gender
 				physicalAdd
 				incampus
 				education
