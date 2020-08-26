@@ -59,7 +59,7 @@ export default function Selections(props) {
 					justify="center"
 					alignItems="center"
 				>
-					<Grid item xs={11} sm={11} md={3} lg={3}>
+					<Grid item xs={11} sm={11} md={4} lg={4}>
 						<Grid
 							container
 							direction="column"
@@ -96,7 +96,7 @@ export default function Selections(props) {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={11} sm={11} md={3} lg={3}>
+					<Grid item xs={11} sm={11} md={4} lg={4}>
 						<Grid
 							container
 							direction="column"
@@ -104,7 +104,7 @@ export default function Selections(props) {
 							alignItems="center"
 						>
 							<Grid item>
-								<Typography variant="overline">From:</Typography>
+								<Typography variant="overline">Date:</Typography>
 							</Grid>
 							<Grid item>
 								<DatePicker
@@ -120,7 +120,7 @@ export default function Selections(props) {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item xs={11} sm={11} md={3} lg={3}>
+					{/*<Grid item xs={11} sm={11} md={3} lg={3}>
 						<Grid
 							container
 							direction="column"
@@ -143,8 +143,8 @@ export default function Selections(props) {
 								/>
 							</Grid>
 						</Grid>
-					</Grid>
-					<Grid item xs={11} sm={11} md={3} lg={3}>
+					</Grid>*/}
+					<Grid item xs={11} sm={11} md={4} lg={4}>
 						<Grid
 							container
 							direction="column"

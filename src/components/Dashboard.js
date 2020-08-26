@@ -54,7 +54,7 @@ function Dashboard() {
 		});
 	} else {
 		return (
-			<Typography variant="button" style={{ marginTop: "350px" }}>
+			<Typography variant="button" style={{ marginTop: "600px" }}>
 				Loading Data ...
 			</Typography>
 		);
